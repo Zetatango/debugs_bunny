@@ -11,7 +11,6 @@ jobs:
           RACK_ENV: test
           PGHOST: 127.0.0.1
           PGUSER: rails_test_user
-      - image: redis:5.0.5-alpine3.9
       - image: circleci/postgres:11.3-alpine-ram
         environment:
           POSTGRES_USER: rails_test_user
@@ -36,18 +35,16 @@ jobs:
             - debugs_bunny-bundle-v0-
 
       - run:
-          name: Bundle Install
+          name: Run bundle install
           command: bundle check --path vendor/bundle || bundle install --jobs=4 --retry=3 --path vendor/bundle
 
       - run:
           name: Run bundle-audit
-          command: |
-            bundle exec bundle-audit check --update
+          command: bundle exec bundle-audit check --update
 
       - run:
-          name: Bundle clean
-          command: |
-            bundle clean
+          name: Run bundle clean
+          command: bundle clean
 
       - save_cache:
           name: Store bundle cache
@@ -57,8 +54,7 @@ jobs:
 
       - run:
           name: Run brakeman
-          command: |
-            bundle exec brakeman -z -o test_results/brakeman.html --github-repo Zetatango/debugs_bunny
+          command: bundle exec brakeman -z -o test_results/brakeman.html --github-repo Zetatango/debugs_bunny
 
       - restore_cache:
           name: Restore rubocop cache
@@ -69,8 +65,7 @@ jobs:
 
       - run:
           name: Run rubocop
-          command: |
-            bundle exec rubocop --parallel --out test_results/rubocop.txt --format fuubar --config .rubocop.yml
+          command: bundle exec rubocop --parallel --out test_results/rubocop.txt --format fuubar --config .rubocop.yml
 
       - save_cache:
           name: Save rubocop cache
@@ -87,7 +82,6 @@ jobs:
           RACK_ENV: test
           PGHOST: 127.0.0.1
           PGUSER: rails_test_user
-      - image: redis:5.0.5-alpine3.9
       - image: circleci/postgres:11.3-alpine-ram
         environment:
           POSTGRES_USER: rails_test_user
