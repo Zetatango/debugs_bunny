@@ -33,7 +33,12 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'bundle-audit'
   spec.add_development_dependency 'bundler', '~> 2.0'
   spec.add_development_dependency 'rake', '~> 10.0'
-  spec.add_development_dependency 'rspec', '~> 3.0'
+  spec.add_development_dependency 'rspec'
+  spec.add_development_dependency 'rspec-collection_matchers'
+  spec.add_development_dependency 'rspec-mocks'
+  spec.add_development_dependency 'rspec-rails'
+  spec.add_development_dependency 'rspec_junit_formatter'
   spec.add_development_dependency 'rubocop'
   spec.add_development_dependency 'rubocop-performance'
+  spec.add_development_dependency 'rubocop-rspec'
 end
