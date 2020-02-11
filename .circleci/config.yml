@@ -58,7 +58,6 @@ jobs:
             bundle exec rubocop
             --out test_results/rubocop.txt
             --format fuubar
-            --config .rubocop.yml
 
   test:
     working_directory: ~/debugs_bunny
