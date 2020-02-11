@@ -1,0 +1,153 @@
+version: 2.1
+commands:
+
+jobs:
+  build:
+    working_directory: ~/debugs_bunny
+    docker:
+      - image: circleci/ruby:2.6.5
+        environment:
+          RAILS_ENV: test
+          RACK_ENV: test
+          PGHOST: 127.0.0.1
+          PGUSER: rails_test_user
+      - image: redis:5.0.5-alpine3.9
+      - image: circleci/postgres:11.3-alpine-ram
+        environment:
+          POSTGRES_USER: rails_test_user
+          POSTGRES_PASSWORD: ""
+          POSTGRES_DB: zetatango_test
+
+    steps:
+      - checkout
+
+      - run:
+          name: Install dependencies
+          command: sudo apt-get update
+
+      - run:
+          name: Install latest bundler
+          command: gem install bundler
+
+      - restore_cache:
+          name: Restore bundle cache
+          keys:
+            - debugs_bunny-bundle-v0-{{ .Branch }}
+            - debugs_bunny-bundle-v0-
+
+      - run:
+          name: Bundle Install
+          command: bundle check --path vendor/bundle || bundle install --jobs=4 --retry=3 --path vendor/bundle
+
+      - run:
+          name: Run bundle-audit
+          command: |
+            bundle exec bundle-audit check --update
+
+      - run:
+          name: Bundle clean
+          command: |
+            bundle clean
+
+      - save_cache:
+          name: Store bundle cache
+          key: debugs_bunny-bundle-v0-{{ .Branch }}
+          paths:
+            - vendor/bundle
+
+      - run:
+          name: Run brakeman
+          command: |
+            bundle exec brakeman -z -o test_results/brakeman.html --github-repo Zetatango/debugs_bunny
+
+      - restore_cache:
+          name: Restore rubocop cache
+          keys:
+            - debugs_bunny-rubocop-v0-{{ .Branch }}-{{ checksum ".rubocop.yml" }}
+            - debugs_bunny-rubocop-v0-{{ .Branch }}
+            - debugs_bunny-rubocop-v0-
+
+      - run:
+          name: Run rubocop
+          command: |
+            bundle exec rubocop --parallel --out test_results/rubocop.txt --format fuubar --config .rubocop.yml
+
+      - save_cache:
+          name: Save rubocop cache
+          key: debugs_bunny-rubocop-v0-{{ .Branch }}-{{ checksum ".rubocop.yml" }}-{{ epoch }}
+          paths:
+            - ../.cache/rubocop_cache
+
+  test:
+    working_directory: ~/debugs_bunny
+    docker:
+      - image: circleci/ruby:2.6.5
+        environment:
+          RAILS_ENV: test
+          RACK_ENV: test
+          PGHOST: 127.0.0.1
+          PGUSER: rails_test_user
+      - image: redis:5.0.5-alpine3.9
+      - image: circleci/postgres:11.3-alpine-ram
+        environment:
+          POSTGRES_USER: rails_test_user
+          POSTGRES_PASSWORD: ""
+          POSTGRES_DB: zetatango_test
+    resource_class: small
+    parallelism: 1
+    steps:
+      - checkout
+
+      - run:
+          name: Install dependencies
+          command: sudo apt-get update
+
+      - run:
+          name: Install latest bundler
+          command: gem install bundler
+
+      - restore_cache:
+          name: Restore bundle cache
+          keys:
+            - debugs_bunny-bundle-v0-{{ .Branch }}
+            - debugs_bunny-bundle-v0-
+
+      - run:
+          name: Bundle Install
+          command: bundle check --path vendor/bundle || bundle install --jobs=4 --retry=3 --path vendor/bundle
+
+      - run:
+          name: Bundle Clean
+          command: bundle clean
+
+      - run:
+          name: Wait for postgres
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+      - run:
+          name: Database setup
+          command: bin/rails db:schema:load --trace
+
+      - run:
+          name: Run tests
+          command: bundle exec rspec --ci-dir=test_results
+
+      - store_test_results:
+          path: test_results
+
+      - store_artifacts:
+          name: Store coverage
+          path: coverage
+          prefix: coverage
+
+      - store_artifacts:
+          name: Store logs
+          path: log
+          prefix: log
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test
