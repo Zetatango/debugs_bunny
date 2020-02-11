@@ -52,10 +52,6 @@ jobs:
           paths:
             - vendor/bundle
 
-      - run:
-          name: Run brakeman
-          command: bundle exec brakeman -z -o test_results/brakeman.html --github-repo Zetatango/debugs_bunny
-
       - restore_cache:
           name: Restore rubocop cache
           keys:
@@ -123,8 +119,13 @@ jobs:
           command: bin/rails db:schema:load --trace
 
       - run:
-          name: Run tests
-          command: bundle exec rspec --ci-dir=test_results
+          name: Run rspec tests
+          command: |
+            bundle exec rspec \
+            --profile 10 \
+            --format RspecJunitFormatter \
+            --out test_results/rspec.xml \
+            --format progress
 
       - store_test_results:
           path: test_results
