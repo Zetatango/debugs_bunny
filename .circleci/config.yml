@@ -61,7 +61,10 @@ jobs:
 
       - run:
           name: Run rubocop
-          command: bundle exec rubocop --parallel --out test_results/rubocop.txt --format fuubar --config .rubocop.yml
+          command: |
+            bundle exec rubocop
+            --out test_results/rubocop.txt
+            --format fuubar
 
       - save_cache:
           name: Save rubocop cache
@@ -104,7 +107,7 @@ jobs:
 
       - run:
           name: Run bundle install
-          command: bundle check --path vendor/bundle || bundle install --jobs=4 --retry=3 --path vendor/bundle
+          command: bundle install --jobs=4 --retry=3
 
       - run:
           name: Run bundle clean
