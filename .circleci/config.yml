@@ -52,13 +52,6 @@ jobs:
           paths:
             - vendor/bundle
 
-      - restore_cache:
-          name: Restore rubocop cache
-          keys:
-            - debugs_bunny-rubocop-v0-{{ .Branch }}-{{ checksum ".rubocop.yml" }}
-            - debugs_bunny-rubocop-v0-{{ .Branch }}
-            - debugs_bunny-rubocop-v0-
-
       - run:
           name: Run rubocop
           command: |
@@ -66,12 +59,6 @@ jobs:
             --out test_results/rubocop.txt
             --format fuubar
             --config .rubocop.yml
-
-      - save_cache:
-          name: Save rubocop cache
-          key: debugs_bunny-rubocop-v0-{{ .Branch }}-{{ checksum ".rubocop.yml" }}-{{ epoch }}
-          paths:
-            - ../.cache/rubocop_cache
 
   test:
     working_directory: ~/debugs_bunny
