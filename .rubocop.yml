@@ -1,0 +1,39 @@
+require: rubocop-performance
+
+AllCops:
+  Exclude:
+    - bin/*
+  TargetRubyVersion: 2.6.5
+
+Style/Documentation:
+  Enabled: false
+
+Security/MarshalLoad:
+  Enabled: true
+
+Security/Eval:
+  Enabled: true
+
+Security/YAMLLoad:
+  Enabled: true
+
+Security/JSONLoad:
+  Enabled: true
+
+Layout/LineLength:
+  Max: 160
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 50
+
+Metrics/MethodLength:
+  Max: 50
+
+Style/StringLiterals:
+  Enabled: true

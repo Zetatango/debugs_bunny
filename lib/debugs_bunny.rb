@@ -1,4 +1,6 @@
-require "debugs_bunny/version"
+# frozen_string_literal: true
+
+require 'debugs_bunny/version'
 
 module DebugsBunny
   class Error < StandardError; end
