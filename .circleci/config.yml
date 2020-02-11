@@ -103,11 +103,11 @@ jobs:
             - debugs_bunny-bundle-v0-
 
       - run:
-          name: Bundle Install
+          name: Run bundle install
           command: bundle check --path vendor/bundle || bundle install --jobs=4 --retry=3 --path vendor/bundle
 
       - run:
-          name: Bundle Clean
+          name: Run bundle clean
           command: bundle clean
 
       - run:
@@ -115,11 +115,7 @@ jobs:
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
       - run:
-          name: Database setup
-          command: bin/rails db:schema:load --trace
-
-      - run:
-          name: Run rspec tests
+          name: Run RSpec tests
           command: |
             bundle exec rspec \
             --profile 10 \
