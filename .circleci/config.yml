@@ -46,6 +46,7 @@ jobs:
           name: Run rubocop
           command: |
             bundle exec rubocop \
+            --parallel \
             --out test_results/rubocop.txt \
             --format fuubar
 
