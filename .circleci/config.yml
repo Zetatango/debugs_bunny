@@ -55,8 +55,8 @@ jobs:
       - run:
           name: Run rubocop
           command: |
-            bundle exec rubocop
-            --out test_results/rubocop.txt
+            bundle exec rubocop \
+            --out test_results/rubocop.txt \
             --format fuubar
 
   test:
