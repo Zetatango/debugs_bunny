@@ -6,16 +6,6 @@ jobs:
     working_directory: ~/debugs_bunny
     docker:
       - image: circleci/ruby:2.6.5
-        environment:
-          RAILS_ENV: test
-          RACK_ENV: test
-          PGHOST: 127.0.0.1
-          PGUSER: rails_test_user
-      - image: circleci/postgres:11.3-alpine-ram
-        environment:
-          POSTGRES_USER: rails_test_user
-          POSTGRES_PASSWORD: ""
-          POSTGRES_DB: zetatango_test
 
     steps:
       - checkout
@@ -63,16 +53,6 @@ jobs:
     working_directory: ~/debugs_bunny
     docker:
       - image: circleci/ruby:2.6.5
-        environment:
-          RAILS_ENV: test
-          RACK_ENV: test
-          PGHOST: 127.0.0.1
-          PGUSER: rails_test_user
-      - image: circleci/postgres:11.3-alpine-ram
-        environment:
-          POSTGRES_USER: rails_test_user
-          POSTGRES_PASSWORD: ""
-          POSTGRES_DB: zetatango_test
     resource_class: small
     parallelism: 1
     steps:
@@ -95,14 +75,6 @@ jobs:
       - run:
           name: Run bundle install
           command: bundle install --jobs=4 --retry=3
-
-      - run:
-          name: Run bundle clean
-          command: bundle clean --force
-
-      - run:
-          name: Wait for postgres
-          command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
       - run:
           name: Run RSpec tests
