@@ -1,8 +1,11 @@
-require: rubocop-performance
+require:
+  - rubocop-performance
+  - rubocop-rspec
 
 AllCops:
   Exclude:
-    - bin/*
+    - bin/**/*
+    - vendor/**/*
   TargetRubyVersion: 2.6.5
 
 Style/Documentation:

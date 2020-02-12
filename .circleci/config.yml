@@ -1,0 +1,107 @@
+version: 2.1
+commands:
+
+jobs:
+  build:
+    working_directory: ~/debugs_bunny
+    docker:
+      - image: circleci/ruby:2.6.5
+
+    steps:
+      - checkout
+
+      - run:
+          name: Install dependencies
+          command: sudo apt-get update
+
+      - run:
+          name: Install latest bundler
+          command: gem install bundler
+
+      - restore_cache:
+          name: Restore bundle cache
+          keys:
+            - debugs_bunny-bundle-v0-{{ .Branch }}
+            - debugs_bunny-bundle-v0-
+
+      - run:
+          name: Run bundle install
+          command: bundle install --jobs=4 --retry=3
+
+      - run:
+          name: Run bundle-audit
+          command: bundle exec bundle-audit check --update
+
+      - run:
+          name: Run bundle clean
+          command: bundle clean --force
+
+      - save_cache:
+          name: Store bundle cache
+          key: debugs_bunny-bundle-v0-{{ .Branch }}
+          paths:
+            - vendor/bundle
+
+      - run:
+          name: Run rubocop
+          command: |
+            bundle exec rubocop \
+            --parallel \
+            --out test_results/rubocop.txt \
+            --format fuubar
+
+  test:
+    working_directory: ~/debugs_bunny
+    docker:
+      - image: circleci/ruby:2.6.5
+    resource_class: small
+    parallelism: 1
+    steps:
+      - checkout
+
+      - run:
+          name: Install dependencies
+          command: sudo apt-get update
+
+      - run:
+          name: Install latest bundler
+          command: gem install bundler
+
+      - restore_cache:
+          name: Restore bundle cache
+          keys:
+            - debugs_bunny-bundle-v0-{{ .Branch }}
+            - debugs_bunny-bundle-v0-
+
+      - run:
+          name: Run bundle install
+          command: bundle install --jobs=4 --retry=3
+
+      - run:
+          name: Run RSpec tests
+          command: |
+            bundle exec rspec \
+            --profile 10 \
+            --format RspecJunitFormatter \
+            --out test_results/rspec.xml \
+            --format progress
+
+      - store_test_results:
+          path: test_results
+
+      - store_artifacts:
+          name: Store coverage
+          path: coverage
+          prefix: coverage
+
+      - store_artifacts:
+          name: Store logs
+          path: log
+          prefix: log
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test
