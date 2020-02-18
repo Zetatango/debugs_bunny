@@ -16,10 +16,6 @@ if ENV['COVERAGE'] || ENV['CI']
       SimpleCov::Formatter::HTMLFormatter
     ]
   )
-
-  SimpleCov.start do
-    add_group 'LIB', %w[lib spec]
-  end
 end
 
 RSpec.configure do |config|
