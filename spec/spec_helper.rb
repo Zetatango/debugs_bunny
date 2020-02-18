@@ -6,6 +6,22 @@ require 'factory_bot'
 require 'debugs_bunny'
 require 'support/model_spec_helper'
 
+if ENV['COVERAGE'] || ENV['CI']
+  require 'simplecov'
+  require 'codecov'
+
+  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
+    [
+      SimpleCov::Formatter::Codecov,
+      SimpleCov::Formatter::HTMLFormatter
+    ]
+  )
+
+  SimpleCov.start do
+    add_group 'LIB', %w[lib spec]
+  end
+end
+
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = '.rspec_status'
