@@ -16,6 +16,12 @@ if ENV['COVERAGE'] || ENV['CI']
       SimpleCov::Formatter::HTMLFormatter
     ]
   )
+
+  SimpleCov.start do
+    add_group 'lib', %w[lib]
+    add_group 'models', %w[lib/debugs_bunny/models]
+    add_group 'spec', %w[spec]
+  end
 end
 
 RSpec.configure do |config|
