@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 module Generators
-  extend ActiveSupport::Concern
-
   ROOT_DIR = File.expand_path('../..', __dir__)
   SPEC_DIR = File.join(ROOT_DIR, 'spec')
   TMP_DIR = File.join(ROOT_DIR, 'tmp')
