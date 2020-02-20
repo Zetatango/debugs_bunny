@@ -4,13 +4,6 @@ require 'spec_helper'
 
 class DebugTrace < DebugsBunny::Trace; end
 
-FactoryBot.define do
-  factory :debug_trace, class: 'DebugTrace' do
-    guid { 'dbg_123' } # TODO: remove manual guid when automatic guid creation is implemented
-    dump { 'Mr. Gorbachev, tear down this wall.' }
-  end
-end
-
 RSpec.describe DebugTrace, type: :model do
   it 'is valid with valid parameters' do
     debug_trace = build :debug_trace
