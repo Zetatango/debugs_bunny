@@ -5,6 +5,7 @@ require:
 AllCops:
   Exclude:
     - bin/**/*
+    - spec/rails_test_app/**/*
     - vendor/**/*
   TargetRubyVersion: 2.6.5
 
