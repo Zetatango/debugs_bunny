@@ -24,4 +24,12 @@ RSpec.describe DebugTrace, type: :model do
     debug_trace = create :debug_trace
     expect(debug_trace.created_at).to be_present
   end
+
+  describe '::find_by' do
+    it 'returns the record specified by the guid' do
+      debug_trace = create :debug_trace
+      found_record = described_class.find_by(guid: debug_trace.guid)
+      expect(found_record).to eq debug_trace
+    end
+  end
 end
