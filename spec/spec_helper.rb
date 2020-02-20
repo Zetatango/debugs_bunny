@@ -4,6 +4,7 @@ require 'bundler/setup'
 require 'factory_bot'
 
 require 'debugs_bunny'
+require 'factories/debug_trace'
 require 'support/model_spec_helper'
 
 if ENV['COVERAGE'] || ENV['CI']

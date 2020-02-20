@@ -4,13 +4,6 @@ require 'spec_helper'
 
 class DebugTrace < DebugsBunny::Trace; end
 
-FactoryBot.define do
-  factory :debug_trace, class: 'DebugTrace' do
-    guid { 'dbg_123' } # TODO: remove manual guid when automatic guid creation is implemented
-    dump { 'Mr. Gorbachev, tear down this wall.' }
-  end
-end
-
 RSpec.describe DebugTrace, type: :model do
   it 'is valid with valid parameters' do
     debug_trace = build :debug_trace
@@ -30,5 +23,14 @@ RSpec.describe DebugTrace, type: :model do
   it 'is created with a timestamp' do
     debug_trace = create :debug_trace
     expect(debug_trace.created_at).to be_present
+  end
+
+  describe '::find_by' do
+    let(:debug_trace) { create :debug_trace }
+
+    it 'returns the record specified by the guid' do
+      found_record = described_class.find_by(guid: debug_trace.guid)
+      expect(found_record).to eq debug_trace
+    end
   end
 end
