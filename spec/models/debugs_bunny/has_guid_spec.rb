@@ -27,6 +27,7 @@ RSpec.describe DebugsBunny::HasGuid do
       expect(duplicate.id).to be_nil
       duplicate.save!
       expect(duplicate.guid).to start_with DebugTrace.has_guid_prefix
+      expect(duplicate.guid).not_to eq trace.guid
     end
   end
 

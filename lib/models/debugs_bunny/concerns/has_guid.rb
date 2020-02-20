@@ -6,8 +6,6 @@ module DebugsBunny
   module HasGuid
     extend ActiveSupport::Concern
 
-    REGEXP = /^[\w]+_[\w]+$/.freeze
-
     mattr_accessor :registry do
       {}
     end
