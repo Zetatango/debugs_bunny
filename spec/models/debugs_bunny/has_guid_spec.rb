@@ -54,7 +54,7 @@ RSpec.describe DebugsBunny::HasGuid do
   it 'enforces a globally unique prefix' do
     expect do
       klass = Class.new(DebugsBunny::Trace)
-      klass.has_guid 'trc'
+      klass.has_guid DebugTrace.has_guid_prefix
     end.to raise_error ArgumentError
   end
 
