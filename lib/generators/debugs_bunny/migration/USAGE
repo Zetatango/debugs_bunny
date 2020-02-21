@@ -1,0 +1,10 @@
+Description:
+    Generates a migration for defining a debug trace table. The migration complements the debug trace model. The
+    migration can be performed by invoking rails db:migrate. Once the migration is performed, subclasses of the Trace
+    model can be instantiated and saved to the application's database.
+
+Example:
+    rails generate debugs_bunny:migration debug_traces
+
+    This will create:
+        app/models/debug_traces.rb
