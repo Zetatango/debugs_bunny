@@ -4,7 +4,7 @@ Description:
     model can be instantiated and saved to the application's database.
 
 Example:
-    rails generate debugs_bunny:migration debug_traces
+    rails generate debugs_bunny:migration --table_name debug_traces
 
     This will create:
         app/models/debug_traces.rb
