@@ -1,0 +1,9 @@
+Description:
+    Generates a model for creating debug trace records. The generated model inherits from DebugsBunny::Trace, and
+    includes functionality automatic guid generation and an encrypted data dump field.
+
+Example:
+    rails generate debugs_bunny:model DebugTrace
+
+    This will create:
+        app/models/debug_trace.rb
