@@ -36,6 +36,7 @@ module Generators
 
   def clone_test_project
     remove_test_project
+    FileUtils.mkdir_p(TMP_DIR) unless File.directory?(TMP_DIR)
     FileUtils.cp_r SRC_TEST_PROJECT_ROOT_DIR, TMP_DIR
   end
 
