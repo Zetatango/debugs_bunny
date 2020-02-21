@@ -50,14 +50,6 @@ module Generators
   def model_file(file_name)
     File.join(TMP_TEST_PROJECT_MODEL_DIR, file_name)
   end
-
-  def migration_file(file_name)
-    basename = File.basename(file_name)
-    file_path = File.join(TMP_TEST_PROJECT_MIGRATION_DIR, "[0-9]*_#{basename}")
-    file = Dir.glob(file_path).first
-    file = File.join(TMP_TEST_PROJECT_MIGRATION_DIR, "TIMESTAMP_#{basename}") if file.nil?
-    file
-  end
 end
 
 RSpec.configure do |config|
