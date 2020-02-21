@@ -26,13 +26,9 @@ module Generators
     end
   end
 
-  # rubocop:disable Lint/SuppressedException
   def remove_test_project
-    FileUtils.remove_dir TMP_TEST_PROJECT_ROOT_DIR
-  rescue StandardError
-    # ignored
+    FileUtils.remove_dir TMP_TEST_PROJECT_ROOT_DIR if File.directory?(TMP_TEST_PROJECT_ROOT_DIR)
   end
-  # rubocop:enable Lint/SuppressedException
 
   def clone_test_project
     remove_test_project
