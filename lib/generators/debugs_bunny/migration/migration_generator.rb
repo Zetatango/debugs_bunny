@@ -12,7 +12,7 @@ module DebugsBunny
     source_root File.expand_path('templates', __dir__)
 
     def generate_migration
-      table_name = options['table_name'].to_s.pluralize
+      table_name = options['table_name'].to_s.underscore.pluralize
       table = DebugsBunny::Internal::Schema::TableDescriptor.new(
         table_name,
         DebugsBunny::Internal::Schema::ColumnDescriptor.new(:guid, :string, null: false),
