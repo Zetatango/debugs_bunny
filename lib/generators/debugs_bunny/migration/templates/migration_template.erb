@@ -1,0 +1,13 @@
+# frozen_string_literal: true
+
+class <%= migration_class_name %> < ActiveRecord::Migration[<%= @active_record_version %>]
+  def change
+    create_table :<%= @table.name %>, force: :cascade do |t|
+<%- @table.column_descriptors.each do |column_descriptor| -%>
+      t.<%= column_descriptor.type %> :<%= column_descriptor.name %><%= ", #{column_descriptor.option_list.to_s}" if column_descriptor.option_list.present? %>
+<%- end -%>
+
+      t.timestamps
+    end
+  end
+end
