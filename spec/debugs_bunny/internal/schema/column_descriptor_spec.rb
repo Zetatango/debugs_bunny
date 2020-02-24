@@ -17,18 +17,40 @@ RSpec.describe DebugsBunny::Internal::Schema::ColumnDescriptor do
   end
 
   describe described_class::OptionList do
-    let(:option_list) do
-      options = [
-        DebugsBunny::Internal::Schema::ColumnDescriptor::Option.new(:colour, :blue),
-        DebugsBunny::Internal::Schema::ColumnDescriptor::Option.new(:size, :medium)
-      ]
-      described_class.new(options)
-    end
-
     describe '#to_s' do
+      let(:option_list) do
+        options = [
+          DebugsBunny::Internal::Schema::ColumnDescriptor::Option.new(:colour, :blue),
+          DebugsBunny::Internal::Schema::ColumnDescriptor::Option.new(:size, :medium)
+        ]
+        described_class.new(options)
+      end
+
       it 'returns the OptionList as a list of key-value strings' do
         str = option_list.to_s
         expect(str).to eq 'colour: blue, size: medium'
+      end
+    end
+
+    describe '#blank?' do
+      let(:option_list) { described_class.new([]) }
+
+      it 'returns true if the OptionList contains no Options' do
+        expect(option_list).to be_blank
+      end
+    end
+
+    describe '#present?' do
+      let(:option_list) do
+        options = [
+          DebugsBunny::Internal::Schema::ColumnDescriptor::Option.new(:colour, :blue),
+          DebugsBunny::Internal::Schema::ColumnDescriptor::Option.new(:size, :medium)
+        ]
+        described_class.new(options)
+      end
+
+      it 'returns true if the OptionList contains Options' do
+        expect(option_list).to be_present
       end
     end
   end
