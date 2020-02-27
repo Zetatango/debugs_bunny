@@ -10,7 +10,7 @@ module DebugsBunny
 
         def initialize(name, columns, options = {})
           @columns = Array(columns.map(&:to_sym))
-          @option_list = OptionList.new(options.merge(name: name))
+          @option_list = OptionList.new({ name: name }.merge(options))
         end
 
         def column_names

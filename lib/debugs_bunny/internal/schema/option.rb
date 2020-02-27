@@ -18,6 +18,8 @@ module DebugsBunny
         def to_s
           value_s = if value.is_a? String
                       "'#{value}'"
+                    elsif value.is_a? Symbol
+                      ":#{value}"
                     else
                       value
                     end

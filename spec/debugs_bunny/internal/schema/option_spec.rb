@@ -29,5 +29,11 @@ RSpec.describe DebugsBunny::Internal::Schema::Option do
       str = option.to_s
       expect(str).to eq "option: 'Hello'"
     end
+
+    it 'returns the Option as a key-value string for symbol values' do
+      option = described_class.new(:option, :hello)
+      str = option.to_s
+      expect(str).to eq 'option: :hello'
+    end
   end
 end

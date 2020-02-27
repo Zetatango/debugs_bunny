@@ -15,9 +15,10 @@ RSpec.describe DebugsBunny::Internal::Schema::IndexDescriptor do
   end
 
   describe '#option_list' do
-    it 'returns an OptionList populated by the constructor argument list' do
+    it 'returns an OptionList populated by the constructor name and argument list' do
       option_list = index_descriptor.option_list
-      expect(option_list.first.to_s).to eq 'unique: true'
+      expect(option_list.first.to_s).to eq 'name: :unique_index'
+      expect(option_list.second.to_s).to eq 'unique: true'
     end
   end
 end
