@@ -3,14 +3,15 @@
 require 'rails/generators'
 
 module DebugsBunny
-  class ModelGenerator < Rails::Generators::NamedBase
-    source_root File.expand_path('templates', __dir__)
+  class TraceGenerator < Rails::Generators::NamedBase
+    TEMPLATE_DIR = File.join(TEMPLATES_DIR, 'model')
+    source_root TEMPLATE_DIR
 
     def generate_model
       models_dir = File.join('app', 'models')
       model_file = File.join(models_dir, "#{file_name}.rb")
 
-      template 'model_template.erb', model_file
+      template 'trace_subclass.erb', model_file
     end
   end
 end

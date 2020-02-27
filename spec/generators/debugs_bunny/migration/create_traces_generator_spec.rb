@@ -2,9 +2,9 @@
 
 require 'spec_helper'
 
-require 'generators/debugs_bunny/migration/migration_generator'
+require 'generators/debugs_bunny/migration/create_traces/create_traces_generator'
 
-RSpec.describe DebugsBunny::MigrationGenerator, type: :generator do
+RSpec.describe DebugsBunny::Migration::CreateTracesGenerator, type: :generator do
   let(:table_name) { 'debug_traces' }
   let(:file_name) { "create_#{table_name}.rb" }
 
@@ -43,10 +43,11 @@ RSpec.describe DebugsBunny::MigrationGenerator, type: :generator do
     end
   end
 
-  it 'creates a migration with the expected dump column' do
+  it 'creates a migration with the expected encrypted dump columns' do
     path = migration_file(file_name)
     read_file(path) do |contents|
-      expect(contents).to include 't.string :dump, null: false'
+      expect(contents).to include 't.string :encrypted_dump'
+      expect(contents).to include 't.string :encrypted_dump_iv'
     end
   end
 

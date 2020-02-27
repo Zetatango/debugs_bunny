@@ -1,11 +1,17 @@
 # frozen_string_literal: true
 
+require 'models/debugs_bunny/trace'
+
 ActiveRecord::Schema.define do
   self.verbose = false
 
   create_table 'debug_traces', force: :cascade do |t|
-    t.string 'guid'
-    t.string 'dump'
-    t.datetime 'created_at'
+    DebugsBunny::Trace.table_descriptor.column_descriptors.each do |column|
+      t.send(column.type, column.name, column.option_list.to_h)
+    end
+    t.timestamps
+    DebugsBunny::Trace.table_descriptor.index_descriptors.each do |index|
+      t.send(:index, index.columns, index.option_list.to_h)
+    end
   end
 end

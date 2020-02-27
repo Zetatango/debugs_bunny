@@ -8,6 +8,10 @@ class <%= migration_class_name %> < ActiveRecord::Migration[<%= @active_record_v
 <%- end -%>
 
       t.timestamps
+
+<%- @table.index_descriptors.each do |index| -%>
+      t.index <%= index.column_names %><%= ", #{index.option_list.to_s}" if index.option_list.present? %>
+<%- end -%>
     end
   end
 end
