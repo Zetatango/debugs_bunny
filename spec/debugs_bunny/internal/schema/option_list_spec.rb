@@ -26,7 +26,7 @@ RSpec.describe DebugsBunny::Internal::Schema::OptionList do
 
     it 'returns the OptionList as a list of key-value strings' do
       str = option_list.to_s
-      expect(str).to eq 'colour: blue, size: medium'
+      expect(str).to eq 'colour: :blue, size: :medium'
     end
   end
 
