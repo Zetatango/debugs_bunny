@@ -13,6 +13,7 @@ module DebugsBunny
     define_table do |t|
       t.define_column :guid, :string, null: false
       t.define_column :dump, :string
+      t.define_index :unique_guid, [:guid], unique: true
     end
   end
 end
