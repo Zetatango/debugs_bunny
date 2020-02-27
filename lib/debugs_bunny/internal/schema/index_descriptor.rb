@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'column_descriptor'
-require_relative 'option'
+require_relative 'option_list'
 
 module DebugsBunny
   module Internal
