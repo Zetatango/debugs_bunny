@@ -10,7 +10,7 @@ module DebugsBunny
 
       class_option :table_name, type: :string, required: true
 
-      TEMPLATE_DIR = File.join(TEMPLATES_DIR, 'migration')
+      TEMPLATE_DIR = File.join(TEMPLATES_DIR, 'migrations')
       source_root TEMPLATE_DIR
 
       def generate_migration
