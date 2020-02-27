@@ -31,21 +31,28 @@ RSpec.describe DebugsBunny::Internal::Schema::OptionList do
   end
 
   describe '#blank?' do
-    let(:option_list) { described_class.new({}) }
-
     it 'returns true if the OptionList contains no Options' do
+      option_list = described_class.new({})
       expect(option_list).to be_blank
+    end
+
+    it 'returns false if the OptionList contains Options' do
+      options = { colour: :blue, size: :medium }
+      option_list = described_class.new(options)
+      expect(option_list).not_to be_blank
     end
   end
 
   describe '#present?' do
-    let(:option_list) do
+    it 'returns true if the OptionList contains Options' do
       options = { colour: :blue, size: :medium }
-      described_class.new(options)
+      option_list = described_class.new(options)
+      expect(option_list).to be_present
     end
 
-    it 'returns true if the OptionList contains Options' do
-      expect(option_list).to be_present
+    it 'returns false if the OptionList contains no Options' do
+      option_list = described_class.new({})
+      expect(option_list).not_to be_present
     end
   end
 end
