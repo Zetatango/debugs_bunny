@@ -2,9 +2,9 @@
 
 require 'spec_helper'
 
-require 'generators/debugs_bunny/migration/migration_generator'
+require 'generators/debugs_bunny/migration/create_traces/create_traces_generator'
 
-RSpec.describe DebugsBunny::MigrationGenerator, type: :generator do
+RSpec.describe DebugsBunny::Migration::CreateTracesGenerator, type: :generator do
   let(:table_name) { 'debug_traces' }
   let(:file_name) { "create_#{table_name}.rb" }
 

@@ -3,7 +3,7 @@ Description:
     includes functionality automatic guid generation and an encrypted data dump field.
 
 Example:
-    rails generate debugs_bunny:model DebugTrace
+    rails generate debugs_bunny:trace DebugTrace
 
     This will create:
         app/models/debug_trace.rb

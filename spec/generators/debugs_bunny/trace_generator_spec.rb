@@ -2,9 +2,9 @@
 
 require 'spec_helper'
 
-require 'generators/debugs_bunny/model/model_generator'
+require 'generators/debugs_bunny/trace/trace_generator'
 
-RSpec.describe DebugsBunny::ModelGenerator, type: :generator do
+RSpec.describe DebugsBunny::TraceGenerator, type: :generator do
   let(:model_name) { 'DebugTrace' }
   let(:file_name) { 'debug_trace.rb' }
 
