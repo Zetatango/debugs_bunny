@@ -43,10 +43,11 @@ RSpec.describe DebugsBunny::Migration::CreateTracesGenerator, type: :generator d
     end
   end
 
-  it 'creates a migration with the expected dump column' do
+  it 'creates a migration with the expected encrypted dump columns' do
     path = migration_file(file_name)
     read_file(path) do |contents|
-      expect(contents).to include 't.string :dump, null: false'
+      expect(contents).to include 't.string :encrypted_dump'
+      expect(contents).to include 't.string :encrypted_dump_iv'
     end
   end
 

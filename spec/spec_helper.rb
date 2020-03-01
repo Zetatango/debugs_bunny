@@ -2,6 +2,8 @@
 
 require 'bundler/setup'
 require 'factory_bot'
+require 'rails/all'
+require 'porky_lib'
 
 require 'debugs_bunny'
 require 'factories/debug_trace'
@@ -37,5 +39,22 @@ RSpec.configure do |config|
 
   config.expect_with :rspec do |c|
     c.syntax = :expect
+  end
+
+  PorkyLib::Config.configure(aws_region: 'us-east-1',
+                             aws_key_id: 'key_id',
+                             aws_key_secret: 'key_secret',
+                             aws_client_mock: true)
+  PorkyLib::Config.initialize_aws
+
+  DebugsBunny.configuration.encryption_cmk_key_id = 'test_cmk_id'
+
+  RSpec::Mocks.configuration.allow_message_expectations_on_nil = true
+
+  config.before do
+    logger = Logger.new($stdout)
+    allow(Rails).to receive(:logger).and_return(logger)
+    allow(Rails.cache).to receive(:write)
+    allow(Rails.cache).to receive(:read)
   end
 end
