@@ -26,6 +26,7 @@ module DebugsBunny
       t.define_column :encrypted_dump_iv, :string
       t.define_column :partition_guid, :string, null: false
       t.define_column :encryption_epoch, :string, null: false
+      t.define_index :unique_guid, [:guid], unique: true
     end
   end
 end
