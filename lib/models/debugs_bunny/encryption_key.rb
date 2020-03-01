@@ -2,6 +2,8 @@
 
 require 'daffy_lib'
 
+require_relative 'concerns/can_generate'
+
 module DebugsBunny
   class EncryptionKey < ::DaffyLib::EncryptionKey
     include CanGenerate
