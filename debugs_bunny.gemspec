@@ -47,5 +47,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'simplecov'
   spec.add_development_dependency 'sqlite3'
 
+  spec.add_dependency 'attr_encrypted'
+  spec.add_dependency 'daffy_lib'
   spec.add_dependency 'rails'
 end
