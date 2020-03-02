@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
+require_relative 'application_record'
 require_relative 'concerns/can_generate'
-require_relative 'concerns/concerns/has_encrypted_attributes'
+require_relative 'concerns/has_encrypted_attributes'
 require 'debugs_bunny/config'
 require 'debugs_bunny/internal/schema/column_descriptor'
 
