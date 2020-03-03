@@ -10,6 +10,11 @@ RSpec.describe DebugTrace, type: :model do
     expect(debug_trace).to be_valid
   end
 
+  it 'is valid without a dump' do
+    debug_trace = build :debug_trace, dump: nil
+    expect(debug_trace).to be_valid
+  end
+
   it 'is created with a guid' do
     debug_trace = create :debug_trace
     expect(debug_trace.guid).to be_present
@@ -18,6 +23,12 @@ RSpec.describe DebugTrace, type: :model do
   it 'is created with a dump' do
     debug_trace = create :debug_trace
     expect(debug_trace.dump).to be_present
+  end
+
+  it 'is loaded with the created dump' do
+    debug_trace = create :debug_trace, dump: 'test'
+    db_debug_trace = described_class.find(debug_trace.id)
+    expect(db_debug_trace.dump).to eq 'test'
   end
 
   it 'is created with a timestamp' do

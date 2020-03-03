@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'spec_helper'
 require 'models/debugs_bunny/concerns/has_guid'
 
 class DebugTrace < DebugsBunny::Trace; end
