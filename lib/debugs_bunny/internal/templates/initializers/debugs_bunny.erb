@@ -1,0 +1,7 @@
+# frozen_string_literal: true
+
+require 'debugs_bunny'
+
+DebugsBunny.configuration.encryption_cmk_key_id = DEBUGS_BUNNY_ALIAS # Change me to your CMK Key ID
+DebugsBunny.configuration.encryption_key_cache_timeout = 5.minutes
+DebugsBunny.configuration.encryption_partition_guid = 'DEBUGS_BUNNY_PARTITION'
