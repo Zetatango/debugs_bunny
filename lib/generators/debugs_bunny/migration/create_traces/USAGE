@@ -7,4 +7,4 @@ Example:
     rails generate debugs_bunny:migration:create_traces --table_name debug_traces
 
     This will create:
-        app/models/debug_traces.rb
+        db/migrate/<timestamp>_create_debug_traces.rb
