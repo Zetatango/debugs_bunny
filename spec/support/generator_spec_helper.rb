@@ -13,6 +13,8 @@ module Generators
   TMP_TEST_PROJECT_APP_DIR = File.join(TMP_TEST_PROJECT_ROOT_DIR, 'app').freeze
   TMP_TEST_PROJECT_MODEL_DIR = File.join(TMP_TEST_PROJECT_APP_DIR, 'models').freeze
   TMP_TEST_PROJECT_MIGRATION_DIR = File.join(TMP_TEST_PROJECT_ROOT_DIR, File.join('db', 'migrate'))
+  TMP_TEST_PROJECT_CONFIG_DIR = File.join(TMP_TEST_PROJECT_ROOT_DIR, 'config').freeze
+  TMP_TEST_PROJECT_INITIALIZERS_DIR = File.join(TMP_TEST_PROJECT_CONFIG_DIR, 'initializers').freeze
 
   def generator_class
     described_class
@@ -41,6 +43,10 @@ module Generators
     contents = file.read
     yield contents
     file.close
+  end
+
+  def initializer_file(file_name)
+    File.join(TMP_TEST_PROJECT_INITIALIZERS_DIR, file_name)
   end
 
   def model_file(file_name)
