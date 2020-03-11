@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-require 'generators/debugs_bunny/initializer/config/config_generator'
+require 'generators/debugs_bunny/config/config_generator'
 
 RSpec.describe DebugsBunny::ConfigGenerator, type: :generator do
   before do
