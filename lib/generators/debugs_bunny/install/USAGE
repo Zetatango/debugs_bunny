@@ -1,5 +1,6 @@
 Description:
-    Generates the files needed by the client application to use and configure DebugsBunny. This command invokes a
+    Generates the files needed by the client application to use and configure DebugsBunny. This command invokes other
+    generators necessary for installation.
 
 Example:
     rails generate debugs_bunny:install
