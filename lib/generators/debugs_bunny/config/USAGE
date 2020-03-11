@@ -1,0 +1,10 @@
+Description:
+    Generates an initializer wherein the client application can configure their DebugsBunny installation. At a minimum,
+    the client must define a CMK key ID by assigning a value to DebugsBunny.configuration.encryption_cmk_key_id.
+    Additionally, the client can override the default values for the key cache timeout and partition GUID.
+
+Example:
+    rails generate debugs_bunny:config
+
+    This will create:
+        config/initializers/debugs_bunny.rb
