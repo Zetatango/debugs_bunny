@@ -1,10 +1,9 @@
 Description:
-    Generates a migration for defining a debug trace table. The migration complements the debug trace model. The
-    migration can be performed by invoking rails db:migrate. Once the migration is performed, subclasses of the Trace
-    model can be instantiated and saved to the application's database.
+    Generates a migration for creating the encryption keys table used by DaffyLib. If this table already exists, this
+    generator does not create a new migration.
 
 Example:
-    rails generate debugs_bunny:migration --table_name debug_traces
+    rails generate debugs_bunny:migration:create_encryption_keys
 
     This will create:
-        app/models/debug_traces.rb
+        db/migrate/<timestamp>_create_encryption_keys.rb

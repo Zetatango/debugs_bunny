@@ -1,0 +1,12 @@
+Description:
+    Generates the files needed by the client application to use and configure DebugsBunny. This command invokes other
+    generators necessary for installation.
+
+Example:
+    rails generate debugs_bunny:install
+
+    This will create:
+        app/migrate/<timestamp>_create_debug_traces
+        app/migrate/<timestamp>_create_encryption_keys
+        app/models/debug_traces.rb
+        config/initializers/debugs_bunny.rb
