@@ -38,6 +38,7 @@ module DebugsBunny
     end
 
     define_table do |t|
+      t.name = 'debug_traces'
       t.define_column :guid, :string, null: false
       t.define_column :encrypted_dump, :string
       t.define_column :encrypted_dump_iv, :string
@@ -45,5 +46,7 @@ module DebugsBunny
       t.define_column :encryption_epoch, :string, null: false
       t.define_index :unique_guid, [:guid], unique: true
     end
+
+    self.table_name = @table_descriptor.name
   end
 end

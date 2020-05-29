@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-
-class DebugTrace < DebugsBunny::Trace; end
-
 RSpec.describe DebugTrace, type: :model do
   it 'is valid with valid parameters' do
     debug_trace = build :debug_trace

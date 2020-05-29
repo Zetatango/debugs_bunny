@@ -7,6 +7,8 @@ require 'models/debugs_bunny/application_record'
 require 'models/debugs_bunny/trace'
 require 'debugs_bunny/version'
 
+require 'debugs_bunny/railtie' if defined?(Rails)
+
 module DebugsBunny
   LIB_DIR = File.expand_path('./debugs_bunny', __dir__)
   INTERNAL_DIR = File.join(LIB_DIR, 'internal')

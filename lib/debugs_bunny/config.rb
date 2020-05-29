@@ -5,7 +5,8 @@ module DebugsBunny
     @default_config = {
       encryption_cmk_key_id: nil,
       encryption_key_cache_timeout: 5.minutes,
-      encryption_partition_guid: 'DEBUGS_BUNNY_PARTITION'
+      encryption_partition_guid: 'DEBUGS_BUNNY_PARTITION',
+      max_age: 1.week
     }
     @allowed_config_keys = @default_config.keys
 
@@ -26,5 +27,9 @@ module DebugsBunny
 
   mattr_reader :configuration do
     @config ||= Config.new.config
+  end
+
+  mattr_reader :default_configuration do
+    @default_configuration || Config.new.config
   end
 end
