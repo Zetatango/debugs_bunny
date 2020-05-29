@@ -4,10 +4,7 @@ require 'rake'
 
 module Tasks
   def run_task
-    rails_context do
-      load file
-      Rake::Task[task].invoke
-    end
+    Rake::Task[task].execute
   end
 end
 
