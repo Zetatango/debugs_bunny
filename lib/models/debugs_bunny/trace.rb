@@ -15,6 +15,20 @@ module DebugsBunny
 
     has_guid 'trc'
 
+    scope :created_before, ->(time) { where('created_at <= ?', time) }
+    scope :created_after, ->(time) { where('created_at >= ?', time) }
+    scope :created_between, ->(time_range) { where(created_at: time_range) }
+
+    scope :older_than, lambda { |age|
+      time = Time.now.utc - age
+      created_before(time)
+    }
+
+    scope :newer_than, lambda { |age|
+      time = Time.now.utc - age
+      created_after(time)
+    }
+
     def generate_partition_guid
       self.partition_guid = DebugsBunny.configuration.encryption_partition_guid
     end

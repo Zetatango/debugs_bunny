@@ -44,4 +44,110 @@ RSpec.describe DebugTrace, type: :model do
       expect(found_record).to eq debug_trace
     end
   end
+
+  describe '::created_before' do
+    let(:debug_trace_1) { create :debug_trace, created_at: Time.now.utc }
+    let(:debug_trace_2) { create :debug_trace, created_at: Time.now.utc - 3.days }
+
+    before do
+      debug_trace_1
+      debug_trace_2
+    end
+
+    it 'returns all records created before the given time' do
+      traces = described_class.created_before(Time.now.utc - 1.day)
+      expect(traces.length).to eq 1
+      expect(traces.first).to eq debug_trace_2
+    end
+
+    it 'returns no records if no records have been created before the given time' do
+      traces = described_class.created_before(Time.now.utc - 1.week)
+      expect(traces.length).to eq 0
+    end
+  end
+
+  describe '::created_after' do
+    let(:debug_trace_1) { create :debug_trace, created_at: Time.now.utc - 1.day }
+    let(:debug_trace_2) { create :debug_trace, created_at: Time.now.utc - 3.days }
+
+    before do
+      debug_trace_1
+      debug_trace_2
+    end
+
+    it 'returns all records created after the given time' do
+      traces = described_class.created_after(Time.now.utc - 2.days)
+      expect(traces.length).to eq 1
+      expect(traces.first).to eq debug_trace_1
+    end
+
+    it 'returns no records if no records have been created after the given time' do
+      traces = described_class.created_after(Time.now.utc)
+      expect(traces.length).to eq 0
+    end
+  end
+
+  describe '::created_between' do
+    let(:debug_trace_1) { create :debug_trace, created_at: Time.now.utc - 1.day }
+    let(:debug_trace_2) { create :debug_trace, created_at: Time.now.utc - 3.days }
+
+    before do
+      debug_trace_1
+      debug_trace_2
+    end
+
+    it 'returns all records created between the given time range' do
+      traces = described_class.created_between(Time.now.utc - 1.week..Time.now.utc)
+      expect(traces.length).to eq 2
+      expect(traces.first).to eq debug_trace_1
+      expect(traces.second).to eq debug_trace_2
+    end
+
+    it 'returns no records if no records have been created between the given time range' do
+      traces = described_class.created_between(Time.now.utc - 2.months..Time.now.utc - 1.month)
+      expect(traces.length).to eq 0
+    end
+  end
+
+  describe '::older_than' do
+    let(:debug_trace_1) { create :debug_trace, created_at: Time.now.utc - 1.day }
+    let(:debug_trace_2) { create :debug_trace, created_at: Time.now.utc - 3.days }
+
+    before do
+      debug_trace_1
+      debug_trace_2
+    end
+
+    it 'returns all records older than the given age' do
+      traces = described_class.older_than(2.days)
+      expect(traces.length).to eq 1
+      expect(traces.first).to eq debug_trace_2
+    end
+
+    it 'returns no records if no records are older than the given age' do
+      traces = described_class.older_than(1.week)
+      expect(traces.length).to eq 0
+    end
+  end
+
+  describe '::newer_than' do
+    let(:debug_trace_1) { create :debug_trace, created_at: Time.now.utc - 1.day }
+    let(:debug_trace_2) { create :debug_trace, created_at: Time.now.utc - 3.days }
+
+    before do
+      debug_trace_1
+      debug_trace_2
+    end
+
+    it 'returns all records newer than the given age' do
+      traces = described_class.newer_than(2.days)
+      expect(traces.length).to eq 1
+      expect(traces.first).to eq debug_trace_1
+    end
+
+    it 'returns no records if no records are newer than the given age' do
+      traces = described_class.newer_than(1.minute)
+      expect(traces.length).to eq 0
+    end
+  end
 end
