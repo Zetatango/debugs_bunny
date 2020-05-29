@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable RSpec/DescribeClass
 RSpec.describe 'debugs_bunny:delete_expired_traces', type: :task do
   let(:file) { "#{DebugsBunny::ROOT_DIR}/lib/debugs_bunny/tasks/trace.rake" }
   let(:task) { subject }
@@ -29,3 +30,4 @@ RSpec.describe 'debugs_bunny:delete_expired_traces', type: :task do
     end
   end
 end
+# rubocop:enable RSpec/DescribeClass

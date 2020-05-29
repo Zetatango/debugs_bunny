@@ -8,8 +8,7 @@ module DebugsBunny
     railtie_name :debugs_bunny
 
     rake_tasks do
-      path = File.expand_path(__dir__)
-      Dir.glob("#{path}/tasks/**/*.rake").each { |f| load f }
+      Dir.glob("#{TASKS_DIR}/**/*.rake").each { |f| load f }
     end
   end
 end

@@ -13,4 +13,5 @@ module DebugsBunny
   LIB_DIR = File.expand_path('./debugs_bunny', __dir__)
   INTERNAL_DIR = File.join(LIB_DIR, 'internal')
   TEMPLATES_DIR = File.join(INTERNAL_DIR, 'templates')
+  TASKS_DIR = File.join(LIB_DIR, 'tasks')
 end
