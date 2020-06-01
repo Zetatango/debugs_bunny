@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-
 require 'generators/debugs_bunny/migration/create_encryption_keys/create_encryption_keys_generator'
 
 RSpec.describe DebugsBunny::Migration::CreateEncryptionKeysGenerator, type: :generator do
@@ -9,12 +7,7 @@ RSpec.describe DebugsBunny::Migration::CreateEncryptionKeysGenerator, type: :gen
   let(:file_name) { "create_#{table_name}.rb" }
 
   before do
-    clone_test_project
     allow(ActiveRecord::Base.connection).to receive(:table_exists?).and_return(false)
-  end
-
-  after do
-    remove_test_project
   end
 
   it 'creates a migration file' do

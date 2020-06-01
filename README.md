@@ -20,9 +20,44 @@ Or install it yourself as:
 
     $ gem install debugs_bunny
 
+Once it is installed, you can automatically generate relevant files using:
+
+    $ rails generate debugs_bunny:install
+
 ## Usage
 
-TODO: Write usage instructions here
+Once installed, Traces can be created in the following manner: 
+
+```ruby
+dump = {}
+dump[:authentication] = request&.authentication
+dump[:args] = context[:args]
+dump[:cassette_name] = context[:cassette_name]
+dump[:endpoint] = endpoint.class.name
+dump[:error] = response&.error&.name
+dump[:error_message] = response&.error_message
+dump[:headers] = request&.headers
+dump[:http_code] = response&.http_code
+dump[:http_method] = endpoint.class.http_method
+dump[:outgoing_request_id] = request&.id
+dump[:payload] = request&.payload
+dump[:response] = response&.body
+dump[:retries] = context[:retries] || 0
+dump[:url] = endpoint.url
+
+json = dump.to_json
+trace = DebugTrace.create(dump: json)
+```
+
+DebugsBunny provides a Rake task to automatically clear Traces older than the configured lifetime:
+
+    $ rake debugs_bunny:delete_expired_traces
+    
+The Trace lifetime can be configured by the application. By default, this is set in the generated `debugs_bunny.rb` initializer:
+
+```ruby
+DebugsBunny.configuration.max_age = 1.week
+```
 
 ## Development
 

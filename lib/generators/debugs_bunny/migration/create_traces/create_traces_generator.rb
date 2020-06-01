@@ -8,15 +8,11 @@ module DebugsBunny
     class CreateTracesGenerator < Rails::Generators::Base
       include Rails::Generators::Migration
 
-      class_option :table_name, type: :string, required: true
-
       TEMPLATE_DIR = File.join(TEMPLATES_DIR, 'migrations')
       source_root TEMPLATE_DIR
 
       def generate_migration
-        table_name = options['table_name'].to_s.underscore.pluralize
         table = DebugsBunny::Trace.table_descriptor
-        table.name = table_name
 
         instance_eval do
           @table = table
