@@ -34,17 +34,19 @@ RSpec.describe DebugTrace, type: :model do
 
   # rubocop:disable RSpec/ExampleLength
   it 'persists if the enclosing transaction is rolled back' do
+    error_klass = Class.new(StandardError)
+
     guid = described_class.generate_guid
     dump = 'Hello world!'
 
     expect do
-      suppress(StandardError) do
+      suppress(error_klass) do
         described_class.transaction do
           described_class.transaction(requires_new: true) do
             create :debug_trace, dump: dump, guid: guid
-            raise StandardError
+            raise error_klass
           end
-          raise StandardError
+          raise error_klass
         end
       end
     end.to change(described_class, :count).by(1)
