@@ -29,6 +29,12 @@ module DebugsBunny
       created_after(time)
     }
 
+    after_rollback :rollback_callback
+
+    def rollback_callback
+      self.class.create({ **attributes, dump: dump })
+    end
+
     def generate_partition_guid
       self.partition_guid = DebugsBunny.configuration.encryption_partition_guid
     end
