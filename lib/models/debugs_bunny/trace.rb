@@ -32,7 +32,7 @@ module DebugsBunny
     after_rollback :rollback_callback
 
     def rollback_callback
-      self.class.create({ **attributes, dump: dump })
+      self.class.create({ **attributes.symbolize_keys, dump: dump })
     end
 
     def generate_partition_guid

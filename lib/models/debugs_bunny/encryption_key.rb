@@ -9,7 +9,7 @@ module DaffyLib
     after_rollback :rollback_callback
 
     def rollback_callback
-      self.class.create(attributes)
+      self.class.create(attributes.symbolize_keys)
     end
   end
 end
