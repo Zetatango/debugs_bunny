@@ -4,6 +4,16 @@ require 'daffy_lib'
 
 require_relative 'concerns/can_generate'
 
+module DaffyLib
+  class EncryptionKey
+    after_rollback :rollback_callback
+
+    def rollback_callback
+      self.class.create(attributes.symbolize_keys)
+    end
+  end
+end
+
 module DebugsBunny
   class EncryptionKey < ::DaffyLib::EncryptionKey
     include CanGenerate

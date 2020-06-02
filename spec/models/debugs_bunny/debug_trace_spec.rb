@@ -32,6 +32,30 @@ RSpec.describe DebugTrace, type: :model do
     expect(debug_trace.created_at).to be_present
   end
 
+  # rubocop:disable RSpec/ExampleLength
+  it 'persists if the enclosing transaction is rolled back' do
+    error_klass = Class.new(StandardError)
+
+    guid = described_class.generate_guid
+    dump = 'Hello world!'
+
+    expect do
+      suppress(error_klass) do
+        described_class.transaction do
+          described_class.transaction(requires_new: true) do
+            create :debug_trace, dump: dump, guid: guid
+            raise error_klass
+          end
+        end
+      end
+    end.to change(described_class, :count).by(1)
+
+    traces = described_class.where(guid: guid)
+    expect(traces.length).to eq 1
+    expect(traces.first.dump).to eq dump
+  end
+  # rubocop:enable RSpec/ExampleLength
+
   describe '::find_by' do
     let(:debug_trace) { create :debug_trace }
 
