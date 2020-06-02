@@ -46,7 +46,6 @@ RSpec.describe DebugTrace, type: :model do
             create :debug_trace, dump: dump, guid: guid
             raise error_klass
           end
-          raise error_klass
         end
       end
     end.to change(described_class, :count).by(1)
