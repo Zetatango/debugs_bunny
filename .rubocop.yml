@@ -1,4 +1,4 @@
-require:
+plugins:
   - rubocop-performance
   - rubocop-rspec
 
@@ -7,7 +7,15 @@ AllCops:
     - bin/**/*
     - spec/rails_test_app/**/*
     - vendor/**/*
-  TargetRubyVersion: 2.6.5
+  TargetRubyVersion: 3.3
+  NewCops: enable
+  SuggestExtensions: false
+
+Gemspec/DevelopmentDependencies:
+  Enabled: false
+
+Gemspec/RequireMFA:
+  Enabled: false
 
 Style/Documentation:
   Enabled: false

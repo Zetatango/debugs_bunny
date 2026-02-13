@@ -8,21 +8,41 @@ ActiveRecord::Schema.define do
 
   create_table 'debug_traces', force: :cascade do |t|
     DebugsBunny::Trace.table_descriptor.column_descriptors.each do |column|
-      t.send(column.type, column.name, column.option_list.to_h)
+      options = column.option_list.to_h
+      if options.empty?
+        t.send(column.type, column.name)
+      else
+        t.send(column.type, column.name, **options)
+      end
     end
     t.timestamps
     DebugsBunny::Trace.table_descriptor.index_descriptors.each do |index|
-      t.send(:index, index.columns, index.option_list.to_h)
+      options = index.option_list.to_h
+      if options.empty?
+        t.send(:index, index.columns)
+      else
+        t.send(:index, index.columns, **options)
+      end
     end
   end
 
   create_table 'encryption_keys', force: :cascade do |t|
     DebugsBunny::EncryptionKey.table_descriptor.column_descriptors.each do |column|
-      t.send(column.type, column.name, column.option_list.to_h)
+      options = column.option_list.to_h
+      if options.empty?
+        t.send(column.type, column.name)
+      else
+        t.send(column.type, column.name, **options)
+      end
     end
     t.timestamps
     DebugsBunny::EncryptionKey.table_descriptor.index_descriptors.each do |index|
-      t.send(:index, index.columns, index.option_list.to_h)
+      options = index.option_list.to_h
+      if options.empty?
+        t.send(:index, index.columns)
+      else
+        t.send(:index, index.columns, **options)
+      end
     end
   end
 end

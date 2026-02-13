@@ -59,7 +59,7 @@ module DebugsBunny
         ::DaffyLib::CachingEncryptor::InvalidParameterException
       ].freeze
 
-      def decrypt(attribute, *args)
+      def attr_encrypted_decrypt(attribute, *args)
         handle_decryption_errors(attribute) { super }
       end
 
