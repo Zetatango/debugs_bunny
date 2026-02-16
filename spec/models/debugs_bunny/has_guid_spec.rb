@@ -13,7 +13,7 @@ RSpec.describe DebugsBunny::HasGuid do
     end
 
     it 'allows records to specify a guid' do
-      guid = DebugTrace.has_guid_prefix + '_123'
+      guid = "#{DebugTrace.has_guid_prefix}_123"
       trace = create :debug_trace, guid: guid
       expect(trace.guid).to eq guid
     end

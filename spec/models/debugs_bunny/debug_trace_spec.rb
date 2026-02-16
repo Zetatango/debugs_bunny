@@ -66,18 +66,18 @@ RSpec.describe DebugTrace, type: :model do
   end
 
   describe '::created_before' do
-    let(:debug_trace_1) { create :debug_trace, created_at: Time.now.utc }
-    let(:debug_trace_2) { create :debug_trace, created_at: 3.days.ago }
+    let(:recent_trace) { create :debug_trace, created_at: Time.now.utc }
+    let(:old_trace) { create :debug_trace, created_at: 3.days.ago }
 
     before do
-      debug_trace_1
-      debug_trace_2
+      recent_trace
+      old_trace
     end
 
     it 'returns all records created before the given time' do
       traces = described_class.created_before(1.day.ago)
       expect(traces.length).to eq 1
-      expect(traces.first).to eq debug_trace_2
+      expect(traces.first).to eq old_trace
     end
 
     it 'returns no records if no records have been created before the given time' do
@@ -87,18 +87,18 @@ RSpec.describe DebugTrace, type: :model do
   end
 
   describe '::created_after' do
-    let(:debug_trace_1) { create :debug_trace, created_at: 1.day.ago }
-    let(:debug_trace_2) { create :debug_trace, created_at: 3.days.ago }
+    let(:recent_trace) { create :debug_trace, created_at: 1.day.ago }
+    let(:old_trace) { create :debug_trace, created_at: 3.days.ago }
 
     before do
-      debug_trace_1
-      debug_trace_2
+      recent_trace
+      old_trace
     end
 
     it 'returns all records created after the given time' do
       traces = described_class.created_after(2.days.ago)
       expect(traces.length).to eq 1
-      expect(traces.first).to eq debug_trace_1
+      expect(traces.first).to eq recent_trace
     end
 
     it 'returns no records if no records have been created after the given time' do
@@ -108,19 +108,19 @@ RSpec.describe DebugTrace, type: :model do
   end
 
   describe '::created_between' do
-    let(:debug_trace_1) { create :debug_trace, created_at: 1.day.ago }
-    let(:debug_trace_2) { create :debug_trace, created_at: 3.days.ago }
+    let(:recent_trace) { create :debug_trace, created_at: 1.day.ago }
+    let(:old_trace) { create :debug_trace, created_at: 3.days.ago }
 
     before do
-      debug_trace_1
-      debug_trace_2
+      recent_trace
+      old_trace
     end
 
     it 'returns all records created between the given time range' do
       traces = described_class.created_between(1.week.ago..Time.now.utc)
       expect(traces.length).to eq 2
-      expect(traces.first).to eq debug_trace_1
-      expect(traces.second).to eq debug_trace_2
+      expect(traces.first).to eq recent_trace
+      expect(traces.second).to eq old_trace
     end
 
     it 'returns no records if no records have been created between the given time range' do
@@ -130,18 +130,18 @@ RSpec.describe DebugTrace, type: :model do
   end
 
   describe '::older_than' do
-    let(:debug_trace_1) { create :debug_trace, created_at: 1.day.ago }
-    let(:debug_trace_2) { create :debug_trace, created_at: 3.days.ago }
+    let(:recent_trace) { create :debug_trace, created_at: 1.day.ago }
+    let(:old_trace) { create :debug_trace, created_at: 3.days.ago }
 
     before do
-      debug_trace_1
-      debug_trace_2
+      recent_trace
+      old_trace
     end
 
     it 'returns all records older than the given age' do
       traces = described_class.older_than(2.days)
       expect(traces.length).to eq 1
-      expect(traces.first).to eq debug_trace_2
+      expect(traces.first).to eq old_trace
     end
 
     it 'returns no records if no records are older than the given age' do
@@ -151,18 +151,18 @@ RSpec.describe DebugTrace, type: :model do
   end
 
   describe '::newer_than' do
-    let(:debug_trace_1) { create :debug_trace, created_at: 1.day.ago }
-    let(:debug_trace_2) { create :debug_trace, created_at: 3.days.ago }
+    let(:recent_trace) { create :debug_trace, created_at: 1.day.ago }
+    let(:old_trace) { create :debug_trace, created_at: 3.days.ago }
 
     before do
-      debug_trace_1
-      debug_trace_2
+      recent_trace
+      old_trace
     end
 
     it 'returns all records newer than the given age' do
       traces = described_class.newer_than(2.days)
       expect(traces.length).to eq 1
-      expect(traces.first).to eq debug_trace_1
+      expect(traces.first).to eq recent_trace
     end
 
     it 'returns no records if no records are newer than the given age' do

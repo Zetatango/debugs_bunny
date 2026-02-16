@@ -66,8 +66,8 @@ RSpec.describe DebugsBunny::HasEncryptedAttributes do
     end
   end
 
-  include_examples 'instantiation', :new
-  include_examples 'instantiation', :create
-  include_examples 'instantiation', :create!
-  include_examples 'decrypt'
+  it_behaves_like 'instantiation', :new
+  it_behaves_like 'instantiation', :create
+  it_behaves_like 'instantiation', :create!
+  it_behaves_like 'decrypt'
 end

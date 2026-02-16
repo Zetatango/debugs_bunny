@@ -23,10 +23,8 @@ module RailsContext
     end
   end
 
-  def rails_context
-    FileUtils.cd(TMP_TEST_PROJECT_ROOT_DIR) do
-      yield
-    end
+  def rails_context(&)
+    FileUtils.cd(TMP_TEST_PROJECT_ROOT_DIR, &)
   end
 
   def remove_test_project

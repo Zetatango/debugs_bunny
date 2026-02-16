@@ -8,8 +8,7 @@ module DebugsBunny
     module Schema
       class TableDescriptor
         attr_accessor :name
-        attr_reader :column_descriptors
-        attr_reader :index_descriptors
+        attr_reader :column_descriptors, :index_descriptors
 
         def initialize(name = '')
           @name = name

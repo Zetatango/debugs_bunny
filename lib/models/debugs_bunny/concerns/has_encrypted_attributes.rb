@@ -16,7 +16,7 @@ module DebugsBunny
       ].freeze
 
       class_methods do
-        def new(*args, &block)
+        def new(*args, &)
           if args.first&.delete(:skip_handle_errors)
             super
           else
@@ -39,12 +39,12 @@ module DebugsBunny
         def handle_instantiation_errors
           yield
         rescue *DAFFY_LIB_HANDLED_ERRORS => e
-          message = "DebugsBunny failed to instantiate a new #{name} record:\n"\
-                    "#{e.message}\n"\
+          message = "DebugsBunny failed to instantiate a new #{name} record:\n" \
+                    "#{e.message}\n" \
                     'Have you configured DebugsBunny and PorkyLib?'
           Rails.logger.error(message)
         rescue StandardError => e
-          message = "DebugsBunny failed to instantiate a new #{name} record due to an unknown error:\n"\
+          message = "DebugsBunny failed to instantiate a new #{name} record due to an unknown error:\n" \
                     "#{e.message}"
           Rails.logger.error(message)
         end
@@ -66,11 +66,11 @@ module DebugsBunny
       def handle_decryption_errors(attribute)
         yield
       rescue *DAFFY_LIB_HANDLED_ERRORS => e
-        message = "DebugsBunny failed to decrypt #{attribute}:\n"\
+        message = "DebugsBunny failed to decrypt #{attribute}:\n" \
                   "#{e.message}\n"
         Rails.logger.error(message)
       rescue StandardError => e
-        message = "DebugsBunny failed to decrypt #{attribute} due to an unknown error:\n"\
+        message = "DebugsBunny failed to decrypt #{attribute} due to an unknown error:\n" \
                   "#{e.message}"
         Rails.logger.error(message)
       end
@@ -90,8 +90,8 @@ module DebugsBunny
           encryptor: ::DaffyLib::CachingEncryptor,
           encrypt_method: :zt_encrypt,
           decrypt_method: :zt_decrypt,
-          partition_guid: proc { |object| object.generate_partition_guid },
-          encryption_epoch: proc { |object| object.generate_encryption_epoch },
+          partition_guid: proc(&:generate_partition_guid),
+          encryption_epoch: proc(&:generate_encryption_epoch),
           cmk_key_id: proc { DebugsBunny.configuration.encryption_cmk_key_id },
           expires_in: proc { DebugsBunny.configuration.encryption_key_cache_timeout }
         )
