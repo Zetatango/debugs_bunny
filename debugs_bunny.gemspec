@@ -30,6 +30,8 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
+  spec.required_ruby_version = '>= 3.3.0'
+
   spec.add_development_dependency 'bundle-audit'
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'codecov'
@@ -39,9 +41,9 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'rspec-collection_matchers'
+  spec.add_development_dependency 'rspec_junit_formatter'
   spec.add_development_dependency 'rspec-mocks'
   spec.add_development_dependency 'rspec-rails'
-  spec.add_development_dependency 'rspec_junit_formatter'
   spec.add_development_dependency 'rubocop'
   spec.add_development_dependency 'rubocop-performance'
   spec.add_development_dependency 'rubocop-rspec'
@@ -50,5 +52,5 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'attr_encrypted'
   spec.add_dependency 'daffy_lib'
-  spec.add_dependency 'rails'
+  spec.add_dependency 'rails', '~> 7.2.0'
 end

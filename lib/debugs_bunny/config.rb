@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 module DebugsBunny
+  ConfigStruct = Struct.new(:encryption_cmk_key_id, :encryption_key_cache_timeout, :encryption_partition_guid, :max_age,
+                            keyword_init: true)
+
   class Config
     @default_config = {
       encryption_cmk_key_id: nil,
@@ -17,7 +20,7 @@ module DebugsBunny
     attr_reader :config
 
     def initialize
-      @config = OpenStruct.new Config.default_config
+      @config = ConfigStruct.new(**Config.default_config)
     end
 
     def configure(options)

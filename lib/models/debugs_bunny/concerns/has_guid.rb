@@ -11,8 +11,7 @@ module DebugsBunny
     end
 
     class_methods do
-      # rubocop:disable Naming/PredicateName
-
+      # rubocop:disable Naming/PredicatePrefix -- DSL method similar to has_many
       def has_guid(prefix)
         if DebugsBunny::HasGuid.registry[prefix].present?
           raise ArgumentError, "Prefix #{prefix} has already been registered by class #{DebugsBunny::HasGuid.registry[prefix]}"
@@ -29,7 +28,7 @@ module DebugsBunny
           validate :ensure_guid_does_not_change
 
           def dup
-            super.tap { |duplicate| duplicate.guid = nil if duplicate.respond_to?('guid=') }
+            super.tap { |duplicate| duplicate.guid = nil if duplicate.respond_to?(:guid=) }
           end
 
           def to_param
@@ -45,7 +44,7 @@ module DebugsBunny
           end
 
           def self.validation_regexp
-            /^#{has_guid_prefix}_[\w]+$/
+            /^#{has_guid_prefix}_\w+$/
           end
 
           def ensure_guid_does_not_change
@@ -56,7 +55,7 @@ module DebugsBunny
           end
         end
       end
-      # rubocop:enable Naming/PredicateName
+      # rubocop:enable Naming/PredicatePrefix
     end
   end
 end
