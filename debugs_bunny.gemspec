@@ -52,5 +52,5 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'attr_encrypted'
   spec.add_dependency 'daffy_lib'
-  spec.add_dependency 'rails', '~> 7.2.0'
+  spec.add_dependency 'rails', '>= 7.2', '< 9'
 end
