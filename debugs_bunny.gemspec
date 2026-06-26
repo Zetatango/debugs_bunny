@@ -44,7 +44,10 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec_junit_formatter'
   spec.add_development_dependency 'rspec-mocks'
   spec.add_development_dependency 'rspec-rails'
-  spec.add_development_dependency 'rubocop'
+  # Pin rubocop to a patch range: the repo runs `NewCops: enable`, so an unpinned
+  # rubocop pulls new cops on every CI run and breaks the build on pre-existing code
+  # unrelated to a change. Patch-level pin keeps CI deterministic (matches the main apps).
+  spec.add_development_dependency 'rubocop', '~> 1.84.0'
   spec.add_development_dependency 'rubocop-performance'
   spec.add_development_dependency 'rubocop-rspec'
   spec.add_development_dependency 'simplecov'
@@ -52,5 +55,5 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'attr_encrypted'
   spec.add_dependency 'daffy_lib'
-  spec.add_dependency 'rails', '~> 7.2.0'
+  spec.add_dependency 'rails', '>= 7.2', '< 9'
 end
